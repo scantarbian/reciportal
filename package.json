@@ -1,11 +1,11 @@
 {
-  "name": "waveportal",
+  "name": "reciportal",
   "version": "1.0.0",
   "description": "Web3 Solidity + ETH Smart Contracts Tutorial from buildspace.so",
   "main": "index.js",
   "scripts": {
     "start": "npx hardhat run scripts/run.js",
-    "deploy": "npx hardhat run scripts/deploy.js --network localhost"
+    "deploy": "npx hardhat run scripts/deploy.js --network rinkeby"
   },
   "keywords": [
     "web3",
@@ -23,5 +23,8 @@
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.4.7",
     "hardhat": "^2.6.4"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0"
   }
 }

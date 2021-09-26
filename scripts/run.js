@@ -1,24 +1,26 @@
 const main = async () => {
-  const [owner, rand] = await hre.ethers.getSigners();
-  const waveContractFactory = await hre.ethers.getContractFactory("WavePortal");
-  const waveContract = await waveContractFactory.deploy();
-  await waveContract.deployed();
+  const recipeContractFactory = await hre.ethers.getContractFactory("Reciportal");
+  const recipeContract = await recipeContractFactory.deploy({
+    value: hre.ethers.utils.parseEther("0.1"),
+  });
+  await recipeContract.deployed();
 
-  console.log(`Contract deployed to: ${waveContract.address}`);
-  console.log(`Contract deployed by: ${owner.address}`);
+  console.log(`Contract deployed to: ${recipeContract.address}`);
 
-  let waveCount;
-  waveCount = await waveContract.getTotalWaves();
+  let balance = await hre.ethers.provider.getBalance(recipeContract.address);
+  console.log(`Contract balance: ${hre.ethers.utils.formatEther(balance)}`);
 
-  let waveTxn = await waveContract.wave();
-  await waveTxn.wait();
+  let recipeTxn = await recipeContract.recipost('Test', 'Test', 'Test');
+  await recipeTxn.wait();
 
-  waveCount = await waveContract.getTotalWaves();
+  recipeTxn = await recipeContract.recipost('Another Test', 'Another Test', 'Another Test');
+  await recipeTxn.wait();
 
-  let waveTxn = await waveContract.connect(rand).wave();
-  await waveTxn.wait();
+  balance = await hre.ethers.provider.getBalance(recipeContract.address);
+  console.log(`Contract balance: ${hre.ethers.utils.formatEther(balance)}`);
 
-  waveCount = await waveContract.getTotalWaves();
+  let allRecipes = await recipeContract.getAllRecipes();
+  console.log(allRecipes);
 };
 
 const runMain = async () => {

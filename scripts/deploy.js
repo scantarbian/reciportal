@@ -1,14 +1,11 @@
 const main = async () => {
-  const [deployer] = await hre.ethers.getSigners();
-  const balance = await deployer.getBalance();
+  const recipeContractFactory = await hre.ethers.getContractFactory("Reciportal");
+  const recipeContract = await recipeContractFactory.deploy({
+    value: hre.ethers.utils.parseEther("0.001"),
+  });
+  await recipeContract.deployed();
 
-  console.log(`Deploying contracts with account: ${deployer.address}`);
-  console.log(`Account balance: ${balance}`);
-
-  const Token = await hre.ethers.getContractFactory("WavePortal");
-  const portal = await Token.deploy();
-
-  console.log(`WavePortal address: ${portal.address}`);
+  console.log(`Reciportal address: ${recipeContract.address}`);
 };
 
 const runMain = async () => {
